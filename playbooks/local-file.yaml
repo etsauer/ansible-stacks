@@ -1,0 +1,9 @@
+---
+- name: "Load up the infrastructure..."
+  hosts: localhost
+  vars_files:
+  - "{{ resource_file }}"
+  roles:
+  - role: openshift-defaults
+  - role: create-openshift-resources
+

@@ -1,0 +1,100 @@
+{
+	"openshift_clusters": [
+		{
+			"openshift_host_env": "master-0.d1.casl.rht-labs.com:8443",
+			"openshift_resources": {
+				"projects": [
+					{
+						"name": "gis-dev",
+						"display_name": "GIS Pipeline - Dev",
+						"environment_type": "build",
+						"apps": [
+							{
+								"name": "jenkins",
+								"scm_url": "https://github.com/sherl0cks/openshift-jenkins-s2i-config",
+								"scm_ref": "all-things-open",
+								"base_image": "openshift/jenkins",
+                                                                "routes": [
+                                                                        {
+                                                                                "route_type": "default"
+									}
+								],
+								"build_tool": "s2i",
+								"environment_variables": {
+									"JENKINS_PASSWORD": "demo"
+								}
+							},
+							{
+								"name": "nodejs",
+								"from_template": "nodejs-mongodb-example"
+							}
+						],
+						"group_to_role": [
+							{
+								"group": {
+									"name": "Developers"
+								},
+								"roles": [
+									{
+										"name": "view"
+									}
+								]
+							},
+                                                        {
+                                                                "group": {
+                                                                        "name": "JenkinsPipelineAdmins"
+                                                                },
+                                                                "roles": [
+                                                                        {
+                                                                                "name": "edit"
+                                                                        }
+                                                                ]
+                                                        }
+						]
+					},
+					{
+						"name": "gis-stg",
+						"display_name": "GIS Pipeline - STG",
+						"environment_type": "promotion",
+						"apps": [
+							{
+								"name": "jenkins",
+								"base_image": "jenkins",
+                                                                "routes": [
+                                                                        {
+                                                                                "route_type": "default"
+									}
+								],
+								"environment_variables": {
+									"JENKINS_PASSWORD": "demo"
+								}
+							}
+						],
+                                                "group_to_role": [
+                                                        {
+                                                                "group": {
+                                                                        "name": "Developers"
+                                                                },
+                                                                "roles": [
+                                                                        {
+                                                                                "name": "view"
+                                                                        }
+                                                                ]
+                                                        },
+                                                        {
+                                                                "group": {
+                                                                        "name": "JenkinsPipelineAdmins"
+                                                                },
+                                                                "roles": [
+                                                                        {
+                                                                                "name": "edit"
+                                                                        }
+                                                                ]
+                                                        }
+						]
+					}
+				]
+			}
+		}
+	]
+}
