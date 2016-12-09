@@ -41,6 +41,11 @@
     apps_def: "{{ project.apps }}"
   when: project.apps is defined and project.apps != "" and project.apps|length > 0
 
+- name: "Set Variable secrets_def Fact"
+  set_fact:
+    secrets_def: "{{ project.secrets }}"
+  when: project.secrets is defined and project.secrets != "" and project.secrets|length > 0
+
 - name: "Add display-name Option"
   set_fact:
     project_options: "{{ project_options }} --display-name='{{ project.display_name }}'"
@@ -84,6 +89,13 @@
   loop_control:
     loop_var: app_item
   when: apps_def != ''
+  static: no
+
+- include: create_secret.yml
+  with_items: '{{ secrets_def }}'
+  loop_control:
+    loop_var: secret_item
+  when: secrets_def != ''
   static: no
 
 ## In order to increase performance when more than one app is present in a build env, this check was moved here after create_app.yml so that builds and image pushes can execute in parallel.
