@@ -14,13 +14,15 @@
               {
                 "name": "infographic-node-app",
                 "scm_url": "https://github.com/rht-labs/infographic-node-app.git",
-                "base_image": "openshift/nodejs"
+                "base_image": "openshift/nodejs",
+                "build_tool": "node-4"
               },
               {
                 "name": "infographic",
                 "scm_url": "https://github.com/rht-labs/infographic.git",
                 "context_dir": "website",
-                "base_image": "openshift/php"
+                "base_image": "openshift/php",
+                "build_tool": "s2i"
               }
             ],
             "user_to_role": [
@@ -84,9 +86,9 @@
                   "builder"
                 ],
                 "files": [
-                  "files/test_secret1",
-                  "files/test_secret2",
-                  "files/test_secret_dir1"
+                  "/tmp/create-openshift-resources/test/files/testsecret1",
+                  "/tmp/create-openshift-resources/test/files/testsecret2",
+                  "/tmp/create-openshift-resources/test/files/testsecretdir1"
                 ]
               }
             ],
