@@ -9,6 +9,7 @@
     group_role_bindings_def: ''
     persistent_volume_claims_def: ''
     apps_def: ''
+    secrets_def: ''
     project: "{{ project_item }}"
 
 - name: Fail for Missing Project Name

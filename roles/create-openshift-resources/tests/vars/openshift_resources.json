@@ -75,7 +75,21 @@
                 "name": "nodejs",
                 "from_template": "nodejs-mongodb-example"
               }
-            ]
+            ],
+            "secrets": [
+              {
+                "name": "mysecret1",
+                "link_to_serviceaccounts": [
+                  "default",
+                  "builder"
+                ],
+                "files": [
+                  "files/test_secret1",
+                  "files/test_secret2",
+                  "files/test_secret_dir1"
+                ]
+              }
+            ],
           }
         ]
       }
