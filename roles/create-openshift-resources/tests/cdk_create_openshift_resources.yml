@@ -11,6 +11,12 @@
     openshift_password: admin
     openshift_user: admin
 
+  pre_tasks:
+  - name: 'Copy test files over to hosts'
+    copy:
+      src: 'files/'
+      dest: '/tmp/create-openshift-resources/test/files'
+
   roles:
     - openshift-defaults
     - create-openshift-resources
