@@ -76,6 +76,21 @@
                 "from_template": "nodejs-mongodb-example"
               }
             ]
+          },
+          {
+            "name": "project-labels",
+            "display_name": "This is a Project with Labels",
+            "environment_type": "test",
+            "labels": [
+              {
+                "key": "foo",
+                "value": "bar"
+              },
+              {
+                "key": "foo1",
+                "value": "bar2"
+              }
+            ]
           }
         ]
       }
