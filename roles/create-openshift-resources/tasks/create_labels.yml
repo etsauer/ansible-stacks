@@ -1,0 +1,13 @@
+---
+
+- name: Set default label fact
+  set_fact:
+    label: "{{ label_item }}"
+
+- name: Fail for Missing name, files
+  fail: msg="This role requires label.key and label.value to be set"
+  when: label.key is not defined and label.value is not defined
+
+- name: Add label to project
+  command: >
+    {{ openshift.common.client_binary }} label ns/{{ project.name }} {{ label.key }}={{ label.value }}
