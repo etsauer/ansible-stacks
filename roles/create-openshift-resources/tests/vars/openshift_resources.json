@@ -15,7 +15,7 @@
                 "name": "infographic-node-app",
                 "scm_url": "https://github.com/rht-labs/infographic-node-app.git",
                 "base_image": "openshift/nodejs",
-                "build_tool": "node-4"
+                "build_tool": "s2i"
               },
               {
                 "name": "infographic",
@@ -97,16 +97,10 @@
             "name": "project-labels",
             "display_name": "This is a Project with Labels",
             "environment_type": "test",
-            "labels": [
-              {
-                "key": "foo",
-                "value": "bar"
-              },
-              {
-                "key": "foo1",
-                "value": "bar2"
-              }
-            ]
+            "labels": {
+              "foo": "bar",
+              "foo1": "bar1"
+            }
           }
         ]
       }

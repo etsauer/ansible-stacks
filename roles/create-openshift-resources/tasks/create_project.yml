@@ -10,7 +10,7 @@
     persistent_volume_claims_def: ''
     apps_def: ''
     secrets_def: ''
-    labels_def: ''
+    project_labels_def: ''
     project: "{{ project_item }}"
 
 - name: Fail for Missing Project Name
@@ -48,9 +48,9 @@
     secrets_def: "{{ project.secrets }}"
   when: project.secrets is defined and project.secrets != "" and project.secrets|length > 0
 
-- name: "Set Variable labels_def Fact"
+- name: "Set Variable project_labels_def Fact"
   set_fact:
-    labels_def: "{{ project.labels }}"
+    project_labels_def: "{{ project.labels }}"
   when: project.labels is defined and project.labels != "" and project.labels|length > 0
 
 - name: "Add display-name Option"
@@ -106,11 +106,8 @@
   static: no
 
 # NOTE: creating labels on projects is a priveleged action, and requires cluster-level "edit" or "patch" permissions on the "namespace" resource
-- include: create_labels.yml
-  with_items: '{{ labels_def }}'
-  loop_control:
-    loop_var: label_item
-  when: labels_def != ''
+- include: create_project_labels.yml
+  when: project_labels_def != ''
   static: no
 
 ## In order to increase performance when more than one app is present in a build env, this check was moved here after create_app.yml so that builds and image pushes can execute in parallel.
