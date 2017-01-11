@@ -14,13 +14,15 @@
               {
                 "name": "infographic-node-app",
                 "scm_url": "https://github.com/rht-labs/infographic-node-app.git",
-                "base_image": "openshift/nodejs"
+                "base_image": "openshift/nodejs",
+                "build_tool": "s2i"
               },
               {
                 "name": "infographic",
                 "scm_url": "https://github.com/rht-labs/infographic.git",
                 "context_dir": "website",
-                "base_image": "openshift/php"
+                "base_image": "openshift/php",
+                "build_tool": "s2i"
               }
             ],
             "user_to_role": [
@@ -81,16 +83,10 @@
             "name": "project-labels",
             "display_name": "This is a Project with Labels",
             "environment_type": "test",
-            "labels": [
-              {
-                "key": "foo",
-                "value": "bar"
-              },
-              {
-                "key": "foo1",
-                "value": "bar2"
-              }
-            ]
+            "labels": {
+              "foo": "bar",
+              "foo1": "bar1"
+            }
           }
         ]
       }

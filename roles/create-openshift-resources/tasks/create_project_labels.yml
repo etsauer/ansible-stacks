@@ -1,0 +1,13 @@
+---
+- name: "Set Base labels_string"
+  set_fact:
+    project_labels_string: ''
+
+- name: "Add label to project_labels_string"
+  set_fact:
+    project_labels_string: "{{ project_labels_string }} {{ item }}={{ labels[item] }}"
+  with_items: '{{ project_labels_def.keys() }}'
+
+- name: Add label to project
+  command: >
+    {{ openshift.common.client_binary }} label ns/{{ project.name }} {{ project_labels_string }}
