@@ -14,13 +14,15 @@
               {
                 "name": "infographic-node-app",
                 "scm_url": "https://github.com/rht-labs/infographic-node-app.git",
-                "base_image": "openshift/nodejs"
+                "base_image": "openshift/nodejs",
+                "build_tool": "s2i"
               },
               {
                 "name": "infographic",
                 "scm_url": "https://github.com/rht-labs/infographic.git",
                 "context_dir": "website",
-                "base_image": "openshift/php"
+                "base_image": "openshift/php",
+                "build_tool": "s2i"
               }
             ],
             "user_to_role": [
@@ -70,6 +72,7 @@
             "name": "template-test",
             "display_name": "Test app creation from template",
             "environment_type": "test",
+            "join_pod_network": "ci-dev",
             "apps": [
               {
                 "name": "nodejs",

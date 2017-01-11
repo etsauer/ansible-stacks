@@ -10,6 +10,7 @@
     persistent_volume_claims_def: ''
     apps_def: ''
     project: "{{ project_item }}"
+    pod_network_to_join: ''
 
 - name: Fail for Missing Project Name
   fail: msg="This role requires project.name to be set and non empty"
@@ -45,6 +46,11 @@
   set_fact:
     project_options: "{{ project_options }} --display-name='{{ project.display_name }}'"
   when: project.display_name is defined and project.display_name != ''
+
+- name: "Set pod network to join"
+  set_fact:
+    pod_network_to_join: "{{ project.join_pod_network }}"
+  when: project.join_pod_network is defined and project.join_pod_network != ''
 
 - name: "Determine If {{ project.name }} Project Exists"
   command: >
@@ -85,6 +91,12 @@
     loop_var: app_item
   when: apps_def != ''
   static: no
+
+- name: "Join Pod Networks"
+  command: >
+    {{ openshift.common.admin_binary }} pod-network join-projects --to={{ pod_network_to_join }} {{ project.name }}
+  when: pod_network_to_join != '' and project.name !=''
+
 
 ## In order to increase performance when more than one app is present in a build env, this check was moved here after create_app.yml so that builds and image pushes can execute in parallel.
 
