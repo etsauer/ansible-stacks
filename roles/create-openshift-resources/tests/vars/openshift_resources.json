@@ -72,6 +72,7 @@
             "name": "template-test",
             "display_name": "Test app creation from template",
             "environment_type": "test",
+            "join_pod_network": "ci-dev",
             "apps": [
               {
                 "name": "nodejs",
