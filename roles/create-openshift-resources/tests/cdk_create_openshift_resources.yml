@@ -16,6 +16,12 @@
     copy:
       src: 'files/'
       dest: '/tmp/create-openshift-resources/test/files'
+  - name: 'Pre-create template-test project'
+    command: >
+      {{ openshift.common.admin_binary }} new-project template-test
+  - name: 'Create the existingsecret'
+    command: >
+      {{ openshift.common.client_binary }} secrets new existingsecret /etc/redhat-release -n template-test
 
   roles:
     - openshift-defaults

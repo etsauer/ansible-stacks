@@ -91,6 +91,16 @@
                   "/tmp/create-openshift-resources/test/files/testsecret2",
                   "/tmp/create-openshift-resources/test/files/testsecretdir1"
                 ]
+              },
+              {
+                "name": "existingsecret",
+                "link_to_serviceaccounts": [
+                  "default"
+                ],
+                "files": [
+                  "/tmp/create-openshift-resources/test/files/testsecret1"
+                ],
+                "overwrite": "true"
               }
             ]
           },
